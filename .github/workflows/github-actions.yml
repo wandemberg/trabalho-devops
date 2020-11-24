@@ -44,7 +44,7 @@ jobs:
           # Email from Heroku Account
           heroku_email: wandemberg.rodrigues@gmail.com
           # The appname to use for deploying/updating
-          heroku_app_name: trabalho-devops-ufc
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }} #Must be unique in Heroku
           # The branch that you would like to deploy to Heroku
           #branch: # optional, default is HEAD
           # Set this to true if want to use --force
