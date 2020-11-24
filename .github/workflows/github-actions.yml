@@ -12,51 +12,12 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-        
-      - name: Heroku Action
-        # You may pin to the exact commit or the version.
-        # uses: CDNievas/heroku-action@c9cf9c85571e67583e44ec92c0d1113f66b0e838
-        uses: CDNievas/heroku-action@v1.0
+      - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
         with:
-          # Used for authentication. You can find it in your heroku homepage account settings
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          # Email from Heroku Account
-          heroku_email: wandemberg.rodrigues@gmail.com
-          # The appname to use for deploying/updating
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }} #Must be unique in Heroku
-          # The branch that you would like to deploy to Heroku
-          #branch: # optional, default is HEAD
-          # Set this to true if want to use --force
-          #useforce: # optional
-          # Set if your app is located in a subdirectory.
-          #appdir: # optional, default is 
-          # Contents of the Procfile to save and deploy
-          #procfile: # optional, default is 
-          # Set to true if you need upload files generated dynamically by the GitHub Action to Heroku
-          #dynamicFiles: # optional
-          # Buildpacks to install on Heroku
-          #buildpacks: # optional, default is 
-          # Path to an localized env file
-          #env_file: # optional, default is 
-
+          heroku_email: "wandemberg.rodrigues@gmail.com"
